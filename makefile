@@ -1,5 +1,5 @@
 SRC:=$(wildcard src/*.c)
-BIN:=rwm
+BIN:=runner-wm
 
 $(BIN): $(SRC)
 	@gcc $(SRC) -o $(BIN)

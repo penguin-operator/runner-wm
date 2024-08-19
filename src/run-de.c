@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include "config.h"
+#include "run-de.h"
 
 int main(int argc, char** argv) {
-    printf("Hello World!\n");
     return 0;
 }

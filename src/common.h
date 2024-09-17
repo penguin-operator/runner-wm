@@ -7,18 +7,18 @@
 #ifndef VIKING
 #define VIKING
 
-struct {
-	struct {
+struct viking_t {
+	struct window_t {
 		uint16_t x;
 		uint16_t y;
-		struct {
+		struct border_t {
 			uint16_t size;
 			char* color;
 		} border;
 	} window;
-} viking;
+};
 
-void config_setup(lua_State* L);
-void config_lua(lua_State* L);
+void config_setup(lua_State*);
+void config_lua(lua_State*, struct viking_t*);
 
 #endif

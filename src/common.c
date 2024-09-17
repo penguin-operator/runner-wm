@@ -1,4 +1,4 @@
-#include "viking.h"
+#include "common.h"
 
 void config_setup(lua_State* L) {
 	lua_createtable(L, 0, 1);
@@ -23,35 +23,20 @@ void config_setup(lua_State* L) {
 	lua_setglobal(L, "viking");
 }
 
-void config_lua(lua_State* L) {
+void config_lua(lua_State* L, struct viking_t* viking) {
 	lua_getglobal(L, "viking");
 	lua_getfield(L, -1, "window");
 	lua_getfield(L, -1, "border");
 	lua_getfield(L, -1, "color");
-	viking.window.border.color = lua_tostring(L, -1);
+	(*viking).window.border.color = lua_tostring(L, -1);
 	lua_pop(L, 1);
 	lua_getfield(L, -1, "size");
-	viking.window.border.size = lua_tointeger(L, -1);
+	(*viking).window.border.size = lua_tointeger(L, -1);
 	lua_pop(L, 2);
 	lua_getfield(L, -1, "x");
-	viking.window.x = lua_tointeger(L, -1);
+	(*viking).window.x = lua_tointeger(L, -1);
 	lua_pop(L, 1);
 	lua_getfield(L, -1, "y");
-	viking.window.y = lua_tointeger(L, -1);
+	(*viking).window.y = lua_tointeger(L, -1);
 	lua_pop(L, 3);
-}
-
-int main(int argc, char** argv) {
-	lua_State* L = luaL_newstate();
-	luaL_openlibs(L);
-	lua_checkstack(L, 256);
-	config_setup(L);
-
-	luaL_dofile(L, "cfg/init.lua");
-	config_lua(L);
-
-	printf("viking window x: %d y: %d border size: %d color: %s\n", viking.window.x, viking.window.y, viking.window.border.size, viking.window.border.color);
-
-	lua_close(L);
-	return 0;
 }
